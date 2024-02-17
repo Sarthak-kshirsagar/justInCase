@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "213746550022",
+    "project_id": "hackmatrix-ba8fb",
+    "storage_bucket": "hackmatrix-ba8fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213746550022:android:0c71052a5fe39ec1534a87",
+        "android_client_info": {
+          "package_name": "com.example.projecthack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "213746550022-9noht1oo5k0jke0s25mf8q6qemajfka2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.projecthack",
+            "certificate_hash": "31a44b005208c4eb04e811215cd1876ba64d3db6"
+          }
+        },
+        {
+          "client_id": "213746550022-otvgir576icu2dgipp06u1j3olgrfjca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP5lkI7HgLpU2lwv-nljEZy0kPtZjRdBE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "213746550022-otvgir576icu2dgipp06u1j3olgrfjca.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "213746550022-0fqh1fc8jr6cvctuq7jpdrqphjnpicpo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.projecthack"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
