@@ -1,4 +1,4 @@
-# projecthack
+# BillWise
 
 A new Flutter project.
 
