@@ -24,11 +24,12 @@ provide visualization of this data.
 - Jupyter Notebook
 
 ## Screenshots of Our Flutter App
-![Image Alt text](data-image/screentwo.png "Optional title")  
+
 
 **Add, Edit, and Delete Expenses**: Users can easily manage their expenses by adding, editing, and deleting them within the app.
 - <img src="https://drive.google.com/uc?export=view&id=1rPLiJY24GSnj2QvyqlME4ImB8uYK4Kn9" alt="Categorical_exp" width="200">
 - <img src="https://drive.google.com/uc?export=view&id=1TweW3ym7hfQphp-kwLPCGajfhVVNTC4U" alt="exp_cat" width="200">
+
 - **Automatic Expense Categorization**: Expenses are automatically categorized based on their names using machine learning models.
 - <img src="https://drive.google.com/uc?export=view&id=1Z1LayA3W7-Rqh5MERSmqO-S2FgP7s4hn" alt="Graph" width="200">
 - **Expense Prediction with ARIMA Modeling**: ARIMA models predict future expenses, aiding users in budget planning.
@@ -48,6 +49,14 @@ provide visualization of this data.
 ### Feedback Section
 - <img src="https://drive.google.com/uc?export=view&id=1Rc-vp3-32jvVIY-9fTxw8wbrcVVu6vdn" alt="Feedback" width="200">
 - **Feedback and Suggestions**: Users can provide feedback and suggestions to improve the app.
+  
+### Finance Educate ChatBot
+- <img src="https://drive.google.com/uc?export=view&id=1aPGUKLyGyWMeN3IDGE-A-MmsZhJHr-RC" alt="Feedback" width="200">
+- **Chatbot for Finance Awareness**: Chatbot provides all possible basic concepts of financial services with continuous assessment.
+
+### Add Custom Expenses in the app
+- <img src="https://drive.google.com/uc?export=view&id=1A0RJ0c4gJMIyOTARYARRlF6rRCuDvny0" alt="Feedback" width="200">
+- **Add Expenses**: Users can add custom expenses to the dashboard for analytics.
 
 
 ## ML Expense forecast Repo: 
@@ -58,4 +67,4 @@ provide visualization of this data.
 
 ## Remarks
 - ML feature Integration will deployed in the further round.
-- Code is working only on local host (Only for ML Feature)
+- Code is working only on local-host (Only for ML Feature)
