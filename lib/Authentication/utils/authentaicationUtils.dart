@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:projecthack/Authentication/loginPage.dart';
 // import 'package:GoogleSignIn/SignInScreen.dart'
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:projecthack/Sections/Dashboard/dashboard.dart';
 import 'package:projecthack/utilities/dateFunc.dart';
 import '../../widgets/homeScreen.dart';
 TextEditingController emailAddressController = new TextEditingController();
@@ -132,12 +133,34 @@ Future<void> createUSerUsingEmailAddress(BuildContext context,name,emailAddress,
 
     print("User created successfully");
   } on FirebaseAuthException catch (e) {
+
     if (e.code == 'weak-password') {
       print('The password provided is too weak.');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text('Week Password'),
+          duration: Duration(seconds: 2),
+        ),
+      );
     } else if (e.code == 'email-already-in-use') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text('Email Already'),
+          duration: Duration(seconds: 2),
+        ),
+      );
       print('The account already exists for that email.');
     }
   } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.green,
+        content: Text('Error'),
+        duration: Duration(seconds: 2),
+      ),
+    );
     print(e);
   }
 }
@@ -168,7 +191,7 @@ Future<void> phoneNumberAuthentication(BuildContext context) async {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomeScreen(userId: uid),
+            builder: (context) => DashboardUi(),
           ),
         );
       });

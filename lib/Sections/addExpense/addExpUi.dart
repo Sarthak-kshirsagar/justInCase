@@ -85,83 +85,94 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Add Expense"),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              TextField(
-                controller: amountController,
-                decoration: InputDecoration(labelText: 'Amount'),
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 20.0),
-              DropdownButtonFormField<String>(
-                value: selectedCategory,
-                onChanged: (newValue) {
-                  setState(() {
-                    selectedCategory = newValue;
-                  });
-                },
-                items: ['Food', 'Health', 'Fashion']
-                    .map((category) => DropdownMenuItem(
-                  value: category,
-                  child: Text(category),
-                ))
-                    .toList(),
-                decoration: InputDecoration(labelText: 'Category'),
-              ),
-              SizedBox(height: 20.0),
-              TextField(
-                controller: shopNameController,
-                decoration: InputDecoration(labelText: 'Shop Name (Optional)'),
-              ),
-              SizedBox(height: 20.0),
-              TextField(
-                controller: itemDescriptionController,
-                decoration: InputDecoration(labelText: 'Item Description (Optional)'),
-              ),
-              SizedBox(height: 20.0),
-              Container(
-                width: 350,
-
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: <Widget>[
-                      Text('Date: ${selectedDate.toLocal()}'),
-                      SizedBox(width: 20.0),
-                      ElevatedButton(
-                        onPressed: () => _selectDate(context),
-                        child: Text('Select Date'),
-                      ),
-                    ],
+      // appBar: AppBar(
+      //   title: Text("Add Expense"),
+      // ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 10,),
+                TextField(
+                  controller: amountController,
+                  decoration: InputDecoration(labelText: 'Amount'),
+                  keyboardType: TextInputType.number,
+                ),
+                SizedBox(height: 20.0),
+                DropdownButtonFormField<String>(
+                  value: selectedCategory,
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedCategory = newValue;
+                    });
+                  },
+                  items: ['Food', 'Health', 'Fashion']
+                      .map((category) => DropdownMenuItem(
+                    value: category,
+                    child: Text(category),
+                  ))
+                      .toList(),
+                  decoration: InputDecoration(labelText: 'Category'),
+                ),
+                SizedBox(height: 20.0),
+                TextField(
+                  controller: shopNameController,
+                  decoration: InputDecoration(labelText: 'Shop Name (Optional)'),
+                ),
+                SizedBox(height: 20.0),
+                TextField(
+                  controller: itemDescriptionController,
+                  decoration: InputDecoration(labelText: 'Item Description (Optional)'),
+                ),
+                SizedBox(height: 20.0),
+                Container(
+                  width: 350,
+        
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: <Widget>[
+                        Text('Date: ${selectedDate.toLocal()}'),
+                        SizedBox(width: 20.0),
+                        ElevatedButton(
+                          onPressed: () => _selectDate(context),
+                          child: Text('Select Date'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: (){
-                  double? intValue = double.tryParse(amountController.text);
-                  Expense e = Expense(
-          
-                    amount: intValue,
-                    category: selectedCategory.toString().trim(),
-                    description: itemDescriptionController.toString(),
-                    storeName: shopNameController.text,
-                  );
-                  // addExpenseToFirestore(e);
-                  addExpenseToFirestore2(e);
-                  addExpenseToFirestorePayments(e);
-                  addExpenseToFirestoreShopsCollection(e);
-                },
-                child: Text('Save Expense'),
-              ),
-            ],
+                SizedBox(height: 20.0),
+                ElevatedButton(
+                  onPressed: (){
+                    double? intValue = double.tryParse(amountController.text);
+                    Expense e = Expense(
+            
+                      amount: intValue,
+                      category: selectedCategory.toString().trim(),
+                      description: itemDescriptionController.toString(),
+                      storeName: shopNameController.text,
+                    );
+                    // addExpenseToFirestore(e);
+                    addExpenseToFirestore2(e);
+                    addExpenseToFirestorePayments(e);
+                    addExpenseToFirestoreShopsCollection(e);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text('Added'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+        
+                  },
+                  child: Text('Save Expense'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

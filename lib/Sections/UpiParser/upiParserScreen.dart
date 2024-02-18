@@ -105,9 +105,7 @@ class _UpiScreenParserState extends State<UpiScreenParser> {
       }).catchError((error) {
         print("Conversation builder error : " + error.toString());
       });}),
-      appBar: AppBar(
-        title: Text('UPI Parser'),
-      ),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -116,7 +114,7 @@ class _UpiScreenParserState extends State<UpiScreenParser> {
           children: <Widget>[
 
 
-            SizedBox(height: 15,),
+            SizedBox(height: 30,),
             Container(
                 height: 80,child: Image.asset("assets/logo.png")),
 

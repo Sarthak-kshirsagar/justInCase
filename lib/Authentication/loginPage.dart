@@ -33,14 +33,36 @@ bool isSigningIn = false;
           email: emailAddress,
           password: password
 
+
       ).then((value) =>  Navigator.push(context, MaterialPageRoute(builder: (context) => LandingPage(),)));
     } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text('Error'),
+          duration: Duration(seconds: 2),
+        ),
+      );
       setState(() {
         isSigningIn=false;
       });
       if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.green,
+            content: Text('User not Found'),
+            duration: Duration(seconds: 2),
+          ),
+        );
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.green,
+            content: Text('Wrong Password'),
+            duration: Duration(seconds: 2),
+          ),
+        );
         print('Wrong password provided for that user.');
       }
     }

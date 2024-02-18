@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:projecthack/Authentication/loginPage.dart';
 import 'package:projecthack/Sections/Dashboard/dashboard.dart';
 import 'package:projecthack/Sections/Porfile/settings.dart';
 
+import '../../noImplemented.dart';
 import 'feedback.dart';
 import 'helpSection.dart';
 import 'manageProfile.dart';
@@ -15,6 +18,20 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> _signOut() async {
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginScreen(),), (route) => false);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.green,
+        content: Text('Logged Off'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+    await _auth.signOut();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,12 +52,12 @@ class _ProfilePageState extends State<ProfilePage> {
               Divider(),
               Column(
                 children: [
-                  listWidgtes( AboutPage(), Icons.person, "Personal"),
+                  listWidgtes( NotImplemented(), Icons.person, "Personal"),
                   listWidgtes( AboutPage(), Icons.mobile_friendly, "About App"),
-                  listWidgtes(DashboardUi(), Icons.message, "Messages / Support"),
-                  listWidgtes(SettingPage(), Icons.settings_suggest_rounded,
+                  listWidgtes(NotImplemented(), Icons.message, "Messages / Support"),
+                  listWidgtes(NotImplemented(), Icons.settings_suggest_rounded,
                       "Settings"),
-                  listWidgtes(DashboardUi(), Icons.rule, "Legal"),
+                  listWidgtes(NotImplemented(), Icons.rule, "Legal"),
                   // listWidgtes(AboutUS(), Icons.info_rounded, "About Us"),
                 ],
               ),
@@ -56,6 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: InkWell(
                     onTap: () {
                       // signOut();
+                      _signOut();
                     },
                     child: Row(
                       children: [

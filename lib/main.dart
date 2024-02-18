@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kommunicate_flutter/kommunicate_flutter.dart';
 import 'package:projecthack/Authentication/registerUsingEmail.dart';
 import 'package:projecthack/Sections/Dashboard/dashboard.dart';
 import 'package:projecthack/Sections/UpiParser/upiParserScreen.dart';
@@ -58,7 +59,21 @@ class _LandingPageState extends State<LandingPage> {
       backgroundColor: Colors.black,onPressed: (){
 
         Navigator.push(context, MaterialPageRoute(builder: (context) => AddExpenseScreen(),));
-      },child:_selectedIndex==1?Container(width: 50,height: 50,child: Image.asset("assets/chatbot.png")):_selectedIndex==0?Icon(Icons.add,color: Colors.white,):null,):null,
+      },child:_selectedIndex==1?InkWell(
+
+      onTap: ()async{
+        dynamic conversationObject = {
+          'appId': '42a8079ddc31228631ca83451d5c18d',// The [APP_ID](https://dashboard.kommunicate.io/settings/install) obtained from kommunicate dashboard.
+        };
+
+        KommunicateFlutterPlugin.buildConversation(conversationObject)
+            .then((clientConversationId) {
+          print("Conversation builder success : " + clientConversationId.toString());
+        }).catchError((error) {
+          print("Conversation builder error : " + error.toString());
+        });
+      },
+      child: Container(width: 50,height: 50,child: Image.asset("assets/chatbot.png"))):_selectedIndex==0?Icon(Icons.add,color: Colors.white,):null,):null,
       bottomNavigationBar: BottomNavigationBar(
 
 
