@@ -37,8 +37,8 @@ provide visualization of this data.
 
 ### Payment Integration
 <img src="https://drive.google.com/uc?export=view&id=1wCR-7OeIMG2bkvwmgYdM1K3m8Wnj5v4y" alt="Upi Parser" width="200">
-**Integrated Payment Gateways**: Users can make merchant payments directly within the app through integrated payment gateways.
-**Automatic Payment Logging**: Payment information is automatically logged into the expenses list for accurate tracking.
+*Integrated Payment Gateways*: Users can make merchant payments directly within the app through integrated payment gateways.
+*Automatic Payment Logging*: Payment information is automatically logged into the expenses list for accurate tracking.
 
 ### Visualization
 <img src="https://drive.google.com/uc?export=view&id=1rPLiJY24GSnj2QvyqlME4ImB8uYK4Kn9" alt="Categorical_exp" width="200">
