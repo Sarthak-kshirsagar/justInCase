@@ -17,7 +17,7 @@ void main() async{
   );
   return runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: LandingPage(),
+    home: LoginScreen(),
   ));
 }
 
@@ -56,8 +56,9 @@ class _LandingPageState extends State<LandingPage> {
 
 
       backgroundColor: Colors.black,onPressed: (){
+
         Navigator.push(context, MaterialPageRoute(builder: (context) => AddExpenseScreen(),));
-      },child:_selectedIndex==1?Icon(Icons.chat,color: Colors.white,):_selectedIndex==0?Icon(Icons.add,color: Colors.white,):null,):null,
+      },child:_selectedIndex==1?Container(width: 50,height: 50,child: Image.asset("assets/chatbot.png")):_selectedIndex==0?Icon(Icons.add,color: Colors.white,):null,):null,
       bottomNavigationBar: BottomNavigationBar(
 
 

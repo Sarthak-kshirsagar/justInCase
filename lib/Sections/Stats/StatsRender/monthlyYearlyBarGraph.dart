@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -40,15 +42,75 @@ class _MonthlyYearlyBarGraphState extends State<MonthlyYearlyBarGraph> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    initialize();
     _tooltipBehavior =  TooltipBehavior(
 
         enable: true,activationMode: ActivationMode.singleTap);
   }
-  Color monthlyExp = Colors.grey;
+  Color monthlyExp = Colors.purpleAccent;
   Color yearlyExp = Colors.grey;
   bool showMonthlyGraph=true;
   double registerContainerHeight = 350;
   bool isLoading = false;
+  List<BarChartData> yearlyDataA = [];
+  Future<List<BarChartData>> fetchDataFromFirestore() async {
+    try {
+      String? userId = FirebaseAuth.instance.currentUser?.uid;
+
+      if (userId != null) {
+        // Fetch data from Firestore
+        QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+            .collection('Payments')
+            .where('User Id', isEqualTo: userId)
+            .get();
+
+        List<BarChartData> data = [];
+        List<BarChartData> yearlyData = [];
+
+        // Iterate through the documents and create BarChartData objects
+        querySnapshot.docs.forEach((DocumentSnapshot<Map<String, dynamic>> document) {
+          // Accessing the data in the Monthly subcollection
+          Map<String, dynamic> monthlyData = document['monthlyCategory'] ?? {};
+          Map<String,dynamic>yearlyDataa = document['yearlyCategory']??{};
+
+          // Iterate through the monthly data and create BarChartData objects
+          monthlyData.forEach((String month, dynamic value) {
+            // Convert value to double if it's not already
+            double doubleValue = value is int ? value.toDouble() : value;
+            data.add(BarChartData(month, doubleValue));
+          });
+
+          yearlyDataa.forEach((String year, dynamic value) {
+            // Convert value to double if it's not already
+            double doubleValue = value is int ? value.toDouble() : value;
+            yearlyData.add(BarChartData(year, doubleValue));
+          });
+
+        });
+        setState(() {
+          yearlyDataA=yearlyData;
+        });
+
+        return data;
+      } else {
+        print('User not logged in.');
+        // Handle the case where the user is not logged in
+        return [];
+      }
+    } catch (e) {
+      print('Error fetching data from Firestore: $e');
+      // Handle the error as needed
+      return [];
+    }
+  }
+  List<BarChartData> fetchedData=[];
+  void initialize()async{
+    List<BarChartData>feetchedData = await fetchDataFromFirestore();
+    setState(() {
+      fetchedData = feetchedData;
+    });
+    print(feetchedData);
+  }
   void showBorder(bool isClickedEmail,bool isClickedPassword){
     setState(() {
       if(isClickedEmail==true){
@@ -66,12 +128,33 @@ class _MonthlyYearlyBarGraphState extends State<MonthlyYearlyBarGraph> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          SizedBox(height: 15,),
+          Container(
+              height: 80,child: Image.asset("assets/logo.png")),
+
+          SizedBox(height: 30,),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                textAlign: TextAlign.center,
+                "Overall Expense",
+                style: TextStyle(
+                  fontSize:25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 40,),
           Container(
             width: MediaQuery.of(context).size.width,
             // decoration: BoxDecoration(
@@ -145,7 +228,9 @@ class _MonthlyYearlyBarGraphState extends State<MonthlyYearlyBarGraph> {
                         // Renders column chart
 
                         ColumnSeries<BarChartData, String>(
-                            dataSource: data,
+                            dataSource: [
+                              BarChartData("Feb", 1500),
+                            ],
                             enableTooltip: true,
 
                             xValueMapper: (BarChartData data, _) => data.month,
@@ -170,7 +255,9 @@ class _MonthlyYearlyBarGraphState extends State<MonthlyYearlyBarGraph> {
                           // Renders column chart
 
                           ColumnSeries<BarChartData, String>(
-                              dataSource: yearlyData,
+                              dataSource: [
+                                BarChartData("Feb", 1500),
+                              ],
                               enableTooltip: true,
 
                               xValueMapper: (BarChartData data, _) => data.month,

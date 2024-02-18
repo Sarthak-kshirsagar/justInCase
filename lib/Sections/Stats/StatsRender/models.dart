@@ -2,6 +2,6 @@ import 'package:flutter/material.dart';
 
 class BarChartData{
   final String? month;
-  final int? amount;
+  final double? amount;
   BarChartData(this.month,this.amount);
 }
