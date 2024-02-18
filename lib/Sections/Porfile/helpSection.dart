@@ -11,16 +11,16 @@ class HelpContent {
 class HelpScreen extends StatelessWidget {
   final List<HelpContent> helpContents = [
     HelpContent(
-      question: 'How to add customers?',
-      answer: 'Navigate to the home, then go to customer management, and finally, add a new customer.',
+      question: 'How does the Expense Tracker simplify my spending habits?',
+      answer: 'Effortlessly categorize and track your expenses in real-time, providing a clear overview of your financial patterns.',
     ),
     HelpContent(
-      question: 'How to manage payments?',
-      answer: 'Navigate to the home, then go to payment management, and finally, update.',
+      question: 'What insights can I gain from the Financial Dashboard?',
+      answer: 'Gain actionable insights into your spending, set achievable financial goals, and monitor your savings effortlessly.',
     ),
     HelpContent(
-      question: 'How to generate and share invoices?',
-      answer: 'Navigate to billing and invoicing, then select customers according to your needs using the dropdown. Next, click on "View Bill," followed by "View Receipt," and finally, click on "Share."',
+      question: 'How can the Smart Finance Hub enhance my financial knowledge?',
+      answer: 'Elevate your financial literacy with expert tips, personalized chatbot assistance, and interactive tools for informed decision-making.',
     ),
 
     // Add more help contents as needed

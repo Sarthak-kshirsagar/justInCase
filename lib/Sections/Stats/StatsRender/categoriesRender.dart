@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:projecthack/Sections/Stats/StatsRender/models.dart/';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -39,11 +41,69 @@ class _CategoriesRenderState extends State<CategoriesRender> {
   ];
 
   late TooltipBehavior _tooltipBehavior;
-  Color monthlyExp = Colors.grey;
+  Color monthlyExp = Colors.purpleAccent;
   Color yearlyExp = Colors.grey;
   bool showMonthlyGraph=true;
   double registerContainerHeight = 350;
   bool isLoading = false;
+
+
+
+
+
+
+  Future<List<BarChartData>> fetchShopWiseDataFromFirestore() async {
+    try {
+      String? userId = FirebaseAuth.instance.currentUser?.uid;
+
+      if (userId != null) {
+        // Fetch data from Firestore
+        QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+            .collection('ShopWiseExpense')  // Make sure the collection name is correct
+            .where('userId', isEqualTo: userId)
+            .get();
+
+        List<BarChartData> data = [];
+
+        // Iterate through the documents and create BarChartData objects
+        querySnapshot.docs.forEach((DocumentSnapshot<Map<String, dynamic>> document) {
+          // Accessing the data in the document
+          Map<String, dynamic> shopData = document.data() ?? {};
+
+          // Extract shopName and value
+          shopData.forEach((String shopName, dynamic value) {
+            if (value != null && value is num) {
+              data.add(BarChartData(shopName, value.toDouble()));
+            } else {
+              print('Invalid value for shopName: $shopName, value: $value');
+            }
+          });
+        });
+
+        print('Final Data: $data');
+        return data;
+      } else {
+        print('User not logged in.');
+        // Handle the case where the user is not logged in
+        return [];
+      }
+    } catch (e) {
+      print('Error fetching data from Firestore: $e');
+      // Handle the error as needed
+      return [];
+    }
+  }
+
+  List<BarChartData> fetchedData=[];
+void initialize()async{
+    List<BarChartData> l1 = await fetchShopWiseDataFromFirestore();
+    setState(() {
+      fetchedData = l1;
+    });
+}
+
+
+
   void showBorder(bool isClickedEmail,bool isClickedPassword){
     setState(() {
       if(isClickedEmail==true){
@@ -61,11 +121,14 @@ class _CategoriesRenderState extends State<CategoriesRender> {
       }
     });
   }
+
+
   @override
-  String selectedMonth = 'January';
+  String selectedMonth = "February";
   void initState() {
     // TODO: implement initState
     super.initState();
+    initialize();
     _tooltipBehavior =
         TooltipBehavior(enable: true, activationMode: ActivationMode.singleTap);
   }
@@ -75,8 +138,28 @@ class _CategoriesRenderState extends State<CategoriesRender> {
     return Scaffold(
       body: SafeArea(
           child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          SizedBox(height: 15,),
+          Container(
+              height: 80,child: Image.asset("assets/logo.png")),
+
+          SizedBox(height: 30,),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                textAlign: TextAlign.center,
+                "Monthly Expenses",
+                style: TextStyle(
+                  fontSize:25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 40,),
           Container(
             width: MediaQuery.of(context).size.width,
             // decoration: BoxDecoration(
@@ -199,14 +282,11 @@ class _CategoriesRenderState extends State<CategoriesRender> {
                               type: ConnectorType.curve, length: '25%')
 
                       ),
-                      dataSource: [
-                        // Bind data source
-                        BarChartData('Food', 35),
-                        BarChartData('Stationary', 28),
-                        BarChartData('Movies', 34),
-                        BarChartData('Games', 32),
-                        BarChartData('Xerox', 40)
-                      ],
+                      dataSource:[
+    BarChartData("Roshni", 300),
+    BarChartData("Clinic", 400),
+    BarChartData("Trends", 800),
+    ],
                       xValueMapper: (BarChartData data, _) => data.month,
                       yValueMapper: (BarChartData data, _) => data.amount,
                       name: 'Data',
@@ -244,13 +324,18 @@ if(showMonthlyGraph==false)
 
             ),
             dataSource: [
-              // Bind data source
-              BarChartData('Food', 35),
-              BarChartData('Stationary', 28),
-              BarChartData('Movies', 34),
-              BarChartData('Games', 32),
-              BarChartData('Xerox', 40)
+              BarChartData("Roshni", 300),
+              BarChartData("Clinic", 400),
+              BarChartData("Trends", 800),
             ],
+            // dataSource: [
+            //   // Bind data source
+            //   BarChartData('Food', 35),
+            //   BarChartData('Stationary', 28),
+            //   BarChartData('Movies', 34),
+            //   BarChartData('Games', 32),
+            //   BarChartData('Xerox', 40)
+            // ],
             xValueMapper: (BarChartData data, _) => data.month,
             yValueMapper: (BarChartData data, _) => data.amount,
             name: 'Data',

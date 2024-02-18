@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:projecthack/Sections/Dashboard/dashboard.dart';
+import 'package:projecthack/Sections/Porfile/settings.dart';
 
+import 'feedback.dart';
 import 'helpSection.dart';
+import 'manageProfile.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -25,15 +29,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   smallContainer(HelpScreen(),Icons.help, "Help"),
-                  smallContainer(DashboardUi(),Icons.feedback_rounded, "Feedback")
+                  smallContainer(feedBackPage(),Icons.feedback_rounded, "Feedback")
                 ],
               ),
               Divider(),
               Column(
                 children: [
-                  listWidgtes( DashboardUi(), Icons.person, "Manage Profile"),
+                  listWidgtes( AboutPage(), Icons.person, "Personal"),
+                  listWidgtes( AboutPage(), Icons.mobile_friendly, "About App"),
                   listWidgtes(DashboardUi(), Icons.message, "Messages / Support"),
-                  listWidgtes(DashboardUi(), Icons.settings_suggest_rounded,
+                  listWidgtes(SettingPage(), Icons.settings_suggest_rounded,
                       "Settings"),
                   listWidgtes(DashboardUi(), Icons.rule, "Legal"),
                   // listWidgtes(AboutUS(), Icons.info_rounded, "About Us"),
@@ -68,12 +73,12 @@ class _ProfilePageState extends State<ProfilePage> {
               Container(
                 width: 400,
                 child: AboutListTile(
-                  applicationName: "Digi Auto",
+                  applicationName: "BillWise",
                   applicationVersion:"1.0.0.1",
-                  applicationLegalese: "© 2023 Digi Auto.",
+                  applicationLegalese: "© 2023 JustInCase.",
                   dense: true,
                   icon:Icon(Icons.info,size:31,color: Colors.black,),
-                  child: Text("About Us",style: TextStyle(fontSize: 14)),
+                  child: Text("About JustInCase",style: TextStyle(fontSize: 14)),
                   applicationIcon: Icon(Icons.account_balance),
                   aboutBoxChildren: [
 
